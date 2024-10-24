@@ -1,0 +1,732 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+:root {
+  --main-color: #774125;
+  --bg-color: white;
+  --black: #000;
+  --transparent-main-color:#774025af;
+}
+body {
+  font-family: "Cairo", sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+body::-webkit-scrollbar {
+  width: 0;
+}
+/* change the scrollbar in the website */
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(49, 49, 49);
+  outline: none;
+}
+.container {
+  padding: 10px 15px;
+  margin: 0 auto;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+/* header start */
+header {
+  background: var(--bg-color);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: solid 2px var(--main-color);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logo img {
+  width: 70px;
+  height: 55px;
+}
+.logo h1 {
+  color: var(--main-color);
+}
+header nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  text-transform: uppercase;
+  padding: 6px 22px;
+  background: var(--main-color);
+  border-radius: 20px;
+}
+header nav h3.userName {
+  color: var(--main-color);
+  display: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+header nav.logedIn a {
+  display: none;
+}
+header nav.logedIn h3.userName {
+  display: block;
+}
+@media (max-width: 767px) {
+  header .logo {
+    gap: 12px;
+  }
+  header .logo img {
+    width: 60px;
+    height: 45px;
+  }
+  header .logo h1 {
+    font-size: 20px;
+  }
+}
+/*  header end */
+/* mainSection start */
+.mainSection {
+  background: url(../images/coffee-background.jpg);
+  background-position: center;
+  background-size: cover;
+}
+.mainSection .container {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 100px;
+}
+.mainSection .container .info > p {
+  color: var(--main-color);
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  line-height: 2;
+  width: 700px;
+}
+.mainSection .container .info .button {
+  width: 210px;
+  font-size: 19px;
+  position: relative;
+  margin: 40px 0;
+}
+.mainSection .container .info .button .hoverImage {
+  position: absolute;
+  width: 150%;
+  height: 350%;
+  left: -20%;
+  top: -100%;
+  transition: 400ms;
+  transform: scale(0);
+}
+.mainSection .container .info .button a {
+  text-decoration: none;
+  color: var(--main-color);
+  border: solid 1px var(--main-color);
+  display: block;
+  padding: 6px 18px;
+  margin-top: 50px;
+  text-align: center;
+  position: relative;
+  transition: 400ms;
+  background: var(--bg-color);
+}
+.mainSection .container .info .button:hover a {
+  background: var(--main-color);
+  color: var(--bg-color);
+}
+.mainSection .container .info .button:hover .hoverImage {
+  transform: scale(1);
+}
+@media (max-width: 767px) {
+  .mainSection .container .info > p {
+    width: 97%;
+    margin: auto;
+    font-size: 27px;
+    text-align: center;
+  }
+  .mainSection .container .info .button {
+    margin: auto;
+  }
+}
+/* mainSection end */
+/* product store start */
+.productsStore {
+  background: var(--bg-color);
+}
+.productsStore .container {
+  min-height: 100vh;
+  position: relative;
+}
+.productsStore .container #searchForm {
+  display: block;
+  min-width: 280px;
+  max-width: 700px;
+  height: 50px;
+  position: relative;
+  margin: 50px auto;
+}
+.productsStore .container #searchForm input {
+  width: 100%;
+  height: 100%;
+  padding: 6px 6px 6px 40px;
+  outline: none;
+  border: solid 2px var(--main-color);
+  color: var(--main-color);
+}
+.productsStore .container #searchForm label {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--main-color);
+  font-size: 18px;
+}
+.productsStore .container .categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+.productsStore .container .categories .cat {
+  width: 130px;
+  padding: 6px 8px;
+  text-align: center;
+  border: solid 1px var(--main-color);
+  color: var(--main-color);
+  transition: 400ms;
+  cursor: pointer;
+  background: var(--bg-color);
+}
+.productsStore .container .categories .cat.active {
+  color: var(--bg-color);
+  background: var(--main-color);
+}
+.productsStore .container .categories .cat:hover {
+  color: var(--bg-color);
+  background: var(--main-color);
+}
+@media (max-width: 767px) {
+  .productsStore .container .categories .cat {
+    width: 100px;
+    font-size: 14px;
+  }
+}
+.productsStore .container .productsResult,
+.UserCart .cartProducts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 215px);
+  margin: 50px 0;
+  gap: 15px;
+}
+.UserCart .cartProducts {
+  justify-content: center;
+}
+.UserCart {
+  margin: 10px 0;
+}
+@media (max-width: 767px) {
+  .productsStore .container .productsResult {
+    justify-content: center;
+  }
+}
+.product {
+  position: relative;
+  top: 0;
+  background: var(--main-color);
+  color: white;
+  text-align: center;
+  height: 220px;
+  cursor: pointer;
+  transition: 400ms;
+}
+.product:hover {
+  top: -8px;
+  box-shadow: 0 0 15px var(--main-color);
+}
+.product .addToCart {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  font-size: 25px;
+}
+.product .addToCart.active {
+  font-weight: 900;
+}
+.product .category {
+  padding: 10px;
+  width: 50px;
+  height: 60px;
+  position: absolute;
+  top: -8px;
+  left: -6px;
+  background: var(--bg-color);
+  color: var(--main-color);
+  border-bottom-right-radius: 50%;
+  font-weight: bold;
+}
+.product img {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 20px auto;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 10px white);
+}
+.product .price {
+  font-weight: bold;
+}
+
+/* product store end */
+/* locationInfo section start */
+.locationInfo .container {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+.locationInfo .container h2 {
+  color: var(--main-color);
+  text-transform: capitalize;
+  font-weight: 600;
+}
+.locationInfo .container #bookTableForm input {
+  display: block;
+  outline: none;
+  border: solid 1px var(--main-color);
+  height: 50px;
+  padding: 8px;
+  width: 95%;
+  margin: 30px auto;
+}
+.locationInfo .container #bookTableForm input:nth-of-type(3) {
+  width: 200px;
+  margin: 30px 0 30px 2.5%;
+}
+.locationInfo .container #bookTableForm #bookTable {
+  width: 200px;
+  padding: 10px 20px;
+  outline: none;
+  border: solid 1px var(--main-color);
+  background: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.locationInfo .container #bookTableForm #bookTable span {
+  position: relative;
+  transition: 400ms;
+}
+.locationInfo .container #bookTableForm #bookTable::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  background: var(--main-color);
+  transition: 400ms;
+}
+.locationInfo .container #bookTableForm #bookTable:hover::before {
+  left: 0;
+}
+.locationInfo .container #bookTableForm #bookTable:hover span {
+  color: var(--bg-color);
+}
+.locationInfo .container h2:nth-of-type(1) {
+  margin: 35px 0;
+}
+.locationInfo .container strong {
+  display: block;
+  color: var(--main-color);
+}
+.locationInfo .container > p {
+  color: var(--main-color);
+  margin-bottom: 30px;
+}
+/* locationInfo section end */
+/* footer start */
+footer {
+  background: url("../images/coffee-background.jpg");
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+footer::before {
+  content: "";
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--bg-color), transparent);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+footer .container {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+footer .logo {
+  margin: 35px 0;
+}
+footer .logo h1 {
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 40px;
+}
+.social {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+.social a {
+  color: var(--bg-color);
+  font-size: 20px;
+  background: var(--main-color);
+  border-radius: 10px;
+  width: 50px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  position: relative;
+  transition: 400ms;
+  top: 0;
+}
+.social a:hover {
+  top: -10px;
+  box-shadow: 0 0 20px var(--main-color);
+}
+footer .rights {
+  color: var(--main-color);
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 19px;
+}
+footer .rights span {
+  font-weight: 900;
+  color: #000;
+}
+.footerimage {
+  position: absolute;
+  bottom: -40px;
+  left: -100px;
+  width: 400px;
+}
+@media (max-width: 991px) {
+  .footerimage {
+    display: none;
+  }
+}
+/* footer end */
+
+/* user profile section start */
+.Userprofile {
+  position: fixed;
+  width: 100%;
+  height: calc(100vh - 76.6px);
+  background: var(--bg-color);
+  z-index: 20;
+  top: 76.6px;
+  left: -105%;
+  transition: 200ms;
+  padding-top: 35px;
+  border: solid 2px var(--main-color);
+}
+.Userprofile .closeProfile {
+  font-size: 40px;
+  display: block;
+  text-align: right;
+  margin-top: -20px;
+  margin-right: 20px;
+  color: var(--main-color);
+  cursor: pointer;
+}
+.Userprofile.active {
+  left: 0;
+}
+.Userprofile .container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.Userprofile .userInfo {
+  padding: 8px 15px 8px 8px;
+  border-right: solid 2px var(--main-color);
+  color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  gap:15px;
+  justify-content: center;
+  position: relative;
+}
+#AccountLogOut{
+  padding:5px;
+  background: var(--bg-color);
+  border: solid 1px var(--main-color);
+  border-radius:20px;
+  text-align: center;
+  width:fit-content;
+  position:absolute;
+  top:20px;
+  right:10px;
+  cursor: pointer;
+}
+@media (max-width: 650px) {
+  .Userprofile .container {
+    grid-template-columns: 1fr;
+  }
+  .Userprofile {
+    overflow-y: scroll;
+  }
+  .Userprofile .userInfo {
+    border: 0;
+  }
+  .Userprofile::-webkit-scrollbar {
+    width: 7px;
+  }
+  /* change the scrollbar in the website */
+  .Userprofile::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(195, 195, 195, 0.3);
+  }
+
+  .Userprofile::-webkit-scrollbar-thumb {
+    background-color: black;
+    outline: none;
+  }
+}
+.Userprofile .userInfo img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: solid 2px var(--main-color);
+  object-fit: cover;
+}
+
+.Userprofile .userInfo .userOrders {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  align-self: flex-start;
+}
+.Userprofile .userInfo .userOrders #numberOfOrders {
+  font-weight: 800;
+  font-size: 18px;
+}
+.Userprofile .userInfo .userOrders > i {
+  font-size: 28px;
+}
+
+/* ------- user cart ------*/
+.Userprofile .UserCart {
+  padding: 15px;
+  overflow-y: scroll;
+  height: calc(100vh - 155px);
+  position: relative;
+}
+.Userprofile .UserCart > h3 {
+  color: var(--main-color);
+  font-size: 30px;
+  text-align: center;
+}
+.Userprofile .UserCart .cartActions {
+  border-top: solid 1px var(--main-color);
+  padding: 15px;
+  position: sticky;
+  bottom: -18px;
+  left: 0;
+  width: 100%;
+  background: var(--bg-color);
+}
+.Userprofile .UserCart .cartActions a {
+  text-decoration: none;
+  padding: 8px 16px;
+  border: solid 1px var(--main-color);
+  color: var(--main-color);
+}
+.Userprofile .UserCart .cartActions .completeOrder {
+  background: var(--main-color);
+  color: white;
+}
+.Userprofile .UserCart::-webkit-scrollbar {
+  width: 5px;
+}
+/* change the scrollbar in the website */
+.Userprofile .UserCart::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(195, 195, 195, 0.3);
+}
+
+.Userprofile .UserCart::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+  outline: none;
+}
+/* user profile section end */
+
+/* login - sign up forms start */
+#loginAlert{
+  position: fixed;
+  top:-100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding:15px;
+  font-size:22px;
+  width: 70%;
+  background:var(--transparent-main-color);
+  color: white;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: center;
+  transition: 400ms;
+}
+#loginAlert.active{
+  top: 20px;
+}
+.loginSignUp {
+  position: fixed;
+  left: 0;
+  z-index: 20;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg-color);
+  padding:0 20px;
+}
+.loginSignUp.disabled{
+  display: none;
+}
+.loginSignUp .container {
+  position: relative;
+  min-width: 300px;
+  max-width: 430px;
+  margin: auto;
+  height: 520px;
+  overflow: hidden;
+  margin-top: 60px;
+  border: solid 1px var(--main-color);
+}
+.loginSignUp .container::before {
+  content: "";
+  width: 200px;
+  height: 200px;
+  background: var(--main-color);
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  transform: rotate(45deg);
+}
+.loginSignUp .container::after {
+  content: "";
+  width: 200px;
+  height: 200px;
+  background: var(--main-color);
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
+  transform: rotate(45deg);
+}
+.closeLoginPage{
+  position:absolute;
+  top:10px;
+  right:10px;
+  color: var(--main-color);
+  font-size:40px;
+  cursor:pointer;
+}
+.loginSignUp .container form {
+  position: absolute;
+  width: 90%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 10px;
+  border-radius: 10px;
+  text-align: center;
+  background: var(--bg-color);
+  color: var(--main-color);
+}
+.loginSignUp .container form h2 {
+  margin: 20px 0 30px;
+  font-size: 30px;
+  text-transform: capitalize;
+}
+.loginSignUp .container form .Formsign-Up-in-Btn {
+  margin: 30px auto;
+  padding: 10px 30px;
+  display: inline-block;
+  background: var(--main-color);
+  color: var(--bg-color);
+  outline: 0;
+  border: none;
+  cursor: pointer;
+}
+.loginSignUp .container input,.loginSignUp .container textarea {
+  outline: none;
+  padding:8px 12px;
+  background: #e0b7a231;
+  color: var(--main-color);
+  border: solid 1px var(--main-color);
+  margin: 15px 0;
+}
+#loginForm input{
+  padding: 14px;
+}
+.loginSignUp .container .addressInputs{
+display: flex;
+width:90%;
+justify-content: space-between;
+}
+.loginSignUp .container .addressInputs input{
+  width: 42%;
+}
+.loginSignUp .container form > p a {
+  font-weight: bolder;
+  color: var(--main-color);
+}
+.loginSignUp .container #SignUpForm {
+  bottom: -101%;
+  transition: 400ms;
+}
+.loginSignUp .container #SignUpForm h2{
+  margin:15px 0 15px;
+}
+.loginSignUp .container #SignUpForm input{
+  margin:6px 0;
+}
+.loginSignUp .container #SignUpForm .Formsign-Up-in-Btn{
+  margin:20px auto;
+}
+.loginSignUp .container #SignUpForm.active {
+  bottom: 0;
+}
+/* login - sign up forms end */

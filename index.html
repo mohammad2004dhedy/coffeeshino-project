@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coffeshino</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+  </head>
+  <body>
+    <div id="loginAlert"></div>
+    <div class="Userprofile">
+      <i class="fa-regular fa-circle-xmark closeProfile"></i>
+      <div class="container">
+        <div class="userInfo">
+          <span id="AccountLogOut">log-out</span>
+          <img
+            src="images/coffeeBeanProfileImage.webp"
+            alt="userName goes here"
+            class="profileImage"
+          />
+          <h3 class="username" id="UserName"></h3>
+          <div>
+            <strong>email : </strong>
+            <p class="userEmail" id="userEmail"></p>
+          </div>
+          <div>
+            <strong>phone number : </strong>
+            <p class="userPhone" id="userPhone"></p>
+          </div>
+          <div>
+            <strong>address :</strong>
+            <address>
+              city : <span class="city" id="userCity"></span><br />
+              twon :<span class="town" id="userTown"></span><br />
+              <span class="describedAddress" id="describedAddress"></span>
+            </address>
+          </div>
+
+          <strong>Orders :</strong>
+          <div class="userOrders">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+            <div class="orderInfo">
+              <span id="numberOfOrders"></span><br />
+              completed Orders
+            </div>
+          </div>
+        </div>
+        <div class="UserCart" id="userCart">
+          <h3>CART :</h3>
+          <div class="cartProducts">
+            <div class="product">
+              <i class="fa-regular fa-heart addToCart"></i>
+              <span class="category">Hot</span>
+              <img src="images/coffeeCup.jpg" alt="title here" />
+              <h3 class="productTitle">black coffe</h3>
+              <span class="price">2.99$</span>
+            </div>
+            <div class="product">
+              <i class="fa-regular fa-heart addToCart"></i>
+              <span class="category">Hot</span>
+              <img src="images/coffeeCup.jpg" alt="title here" />
+              <h3 class="productTitle">black coffe</h3>
+              <span class="price">2.99$</span>
+            </div>
+            <div class="product">
+              <i class="fa-regular fa-heart addToCart"></i>
+              <span class="category">Hot</span>
+              <img src="images/coffeeCup.jpg" alt="title here" />
+              <h3 class="productTitle">black coffe</h3>
+              <span class="price">2.99$</span>
+            </div>
+            <div class="product">
+              <i class="fa-regular fa-heart addToCart"></i>
+              <span class="category">Hot</span>
+              <img src="images/coffeeCup.jpg" alt="title here" />
+              <h3 class="productTitle">black coffe</h3>
+              <span class="price">2.99$</span>
+            </div>
+            <div class="product">
+              <i class="fa-regular fa-heart addToCart"></i>
+              <span class="category">Hot</span>
+              <img src="images/coffeeCup.jpg" alt="title here" />
+              <h3 class="productTitle">black coffe</h3>
+              <span class="price">2.99$</span>
+            </div>
+            <div class="product">
+              <i class="fa-regular fa-heart addToCart"></i>
+              <span class="category">Hot</span>
+              <img src="images/coffeeCup.jpg" alt="title here" />
+              <h3 class="productTitle">black coffe</h3>
+              <span class="price">2.99$</span>
+            </div>
+            <div class="product">
+              <i class="fa-regular fa-heart addToCart"></i>
+              <span class="category">Hot</span>
+              <img src="images/coffeeCup.jpg" alt="title here" />
+              <h3 class="productTitle">black coffe</h3>
+              <span class="price">2.99$</span>
+            </div>
+          </div>
+          <div class="cartActions">
+            <a href="#" class="totalPrice" id="CarttotalPrice"
+              >total is :128.6 $</a
+            >
+            <a href="#" class="completeOrder" id="completeOrder"
+              >completeOrder</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <img draggable="false" src="images/logo.png" alt="logo" />
+          <h1 translate="false">coffeshino</h1>
+        </div>
+        <nav class="" id="navlogedInMode">
+          <a href="#" class="HeaderloginBtn">login</a>
+          <h3 class="userName" id="navUserName"></h3>
+        </nav>
+      </div>
+    </header>
+    <div class="loginSignUp disabled">
+      <i class="fa-regular fa-circle-xmark closeLoginPage"></i>
+      <div class="container">
+        <form id="loginForm">
+          <h2>log-in</h2>
+          <input
+            type="email"
+            required
+            id="login-email"
+            placeholder="enter your email"
+          />
+          <input
+            type="password"
+            required
+            id="login-password"
+            placeholder="enter your password"
+          />
+          <button type="submit" class="Formsign-Up-in-Btn">log-in</button>
+          <p>
+            dont have account ? <a href="" class="SignUpFormBTN">sign-up</a>
+          </p>
+        </form>
+        <form id="SignUpForm">
+          <h2>create account</h2>
+          <input
+            required
+            id="signUpName"
+            type="text"
+            required
+            placeholder="enter your name"
+          />
+          <input
+            required
+            id="signUpEmail"
+            type="email"
+            required
+            placeholder="enter your email"
+          />
+          <input
+            required
+            id="signUpPhoneNumber"
+            type="tel"
+            required
+            placeholder="enter your number"
+          />
+          <input
+            required
+            id="signUpPassword"
+            type="password"
+            required
+            placeholder="enter your password"
+          />
+          <div class="addressInputs">
+            <input
+              required
+              type="text"
+              placeholder="city"
+              id="signUpUserCity"
+            />
+            <input
+              required
+              type="text"
+              placeholder="town"
+              id="signUpUserTown"
+            />
+          </div>
+          <textarea
+            required
+            id="signUpLocation"
+            type="text"
+            required
+            placeholder="describe your location"
+            rows="4"
+          ></textarea>
+          <button
+            type="submit"
+            class="Formsign-Up-in-Btn"
+            id="createAccountbtn"
+          >
+            create account
+          </button>
+          <p>
+            already have account ? <a href="" class="LoginFormBtn">log-in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+    <main class="mainSection">
+      <div class="container">
+        <div class="info">
+          <p>
+            Discover the perfect cup of coffee, roasted to perfection and brewed
+            with love, for moments that matter
+          </p>
+          <div class="button">
+            <img
+              class="hoverImage"
+              src="images/coffee-beans.png"
+              alt="coffee beans"
+            />
+            <a href="#productsStore">Discover our store</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <section class="productsStore" id="productsStore">
+      <div class="container">
+        <form id="searchForm">
+          <input
+            placeholder="search what you want"
+            type="search"
+            id="searchInput"
+          />
+          <label for="searchInput"
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></label>
+        </form>
+        <div class="categories">
+          <div class="cat" data-category="Hot">Hot</div>
+          <div class="cat" data-category="coled">coled</div>
+          <div class="cat" data-category="iced">iced</div>
+          <div class="cat" data-category="Blended">Blended</div>
+          <div class="cat" data-category="Specialty">Specialty</div>
+          <div class="cat" data-category="Decaf">Decaf</div>
+          <div class="cat" data-category="Latte">Latte</div>
+          <div class="cat" data-category="Espresso">Espresso</div>
+          <div class="cat active" data-category="all">all</div>
+        </div>
+        <div class="productsResult">
+          <div class="product">
+            <i class="fa-regular fa-heart addToCart"></i>
+            <span class="category">Hot</span>
+            <img src="images/coffeeCup.jpg" alt="title here" />
+            <h3 class="productTitle">black coffe</h3>
+            <span class="price">2.99$</span>
+          </div>
+          <div class="product">
+            <i class="fa-regular fa-heart addToCart"></i>
+            <span class="category">Hot</span>
+            <img src="images/coffeeCup.jpg" alt="title here" />
+            <h3 class="productTitle">black coffe</h3>
+            <span class="price">2.99$</span>
+          </div>
+          <div class="product">
+            <i class="fa-regular fa-heart addToCart"></i>
+            <span class="category">Hot</span>
+            <img src="images/coffeeCup.jpg" alt="title here" />
+            <h3 class="productTitle">black coffe</h3>
+            <span class="price">2.99$</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="locationInfo">
+      <div class="container">
+        <h2>where we are ?</h2>
+        <strong>arraba / jenin/west town </strong>
+        <strong>Nazazeh Street</strong>
+        <p>+970 595036555</p>
+        <h2>want to visit us ? book a table :</h2>
+        <form id="bookTableForm">
+          <input
+            id="customerName"
+            name="customerName"
+            type="text"
+            placeholder="your full name"
+            required
+          />
+          <input
+            id="CustomerPhoneNumber"
+            name="CustomerPhoneNumber"
+            type="number"
+            placeholder="your phone number"
+          />
+          <input
+            id="customersNumber"
+            name="customersNumber"
+            type="number"
+            placeholder="for how many people ?"
+          />
+          <label for="customerDataTime">Enter the time</label>
+          <input
+            id="customerDateTime"
+            name="customerDateTime"
+            type="datetime-local"
+            placeholder="what time ?"
+          />
+          <button type="submit" id="bookTable"><span>Book Table</span></button>
+        </form>
+      </div>
+    </section>
+    <footer>
+      <img src="images/coffeeCupFooter.png" alt="" class="footerimage" />
+      <div class="container">
+        <div class="logo">
+          <img draggable="false" src="images/logo.png" alt="logo" />
+          <h1 translate="false">coffeshino</h1>
+        </div>
+        <span class="rights"
+          >copy right saved &copy;2024<span> mohammed dhedy</span></span
+        >
+        <div class="social">
+          <a target="_blank" href="https://github.com/mohammad2004dhedy"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+          <a target="_blank" href="https://www.linkedin.com/in/mohammad-dhedy/"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+          <a target="_blank" href="facebook.com/profile.php?id=100008092711288"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a target="_blank" href="https://www.instagram.com/mohammad_dhedy/"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+    <script src="app.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.emailjs.com/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("Odryml8-PVY4eU0Uz");
+      })();
+    </script>
+  </body>
+</html>
