@@ -245,7 +245,7 @@ header nav.logedIn h3.userName {
   margin: 50px 0;
   gap:18px;
   justify-content: center;
-}
+}d
 .UserCart {
   margin: 10px 0;
 }
@@ -283,7 +283,6 @@ header nav.logedIn h3.userName {
   color: var(--main-color);
   border-bottom-right-radius: 50%;
   font-weight: bold;
-  z-index: 3;
 }
 .product img {
   width: 100px;
@@ -589,7 +588,7 @@ footer .rights span {
 /* login - sign up forms start */
 #loginAlert{
   position: fixed;
-  top:-100px;
+  top:-500px;
   left: 50%;
   transform: translateX(-50%);
   padding:15px;

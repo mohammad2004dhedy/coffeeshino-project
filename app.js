@@ -6,7 +6,6 @@ let idCounter = localStorage.getItem("idCounter")
 let usersData = localStorage.getItem("usersData")
   ? JSON.parse(localStorage.getItem("usersData"))
   : [];
-
 // Template for a user object
 let userTempObject = {
   id: -1,
@@ -25,7 +24,7 @@ let userTempObject = {
 let loggedInUser = localStorage.getItem("logeedINUser")
   ? JSON.parse(localStorage.getItem("logeedINUser"))
   : userTempObject;
-
+let cartProducts = loggedInUser.cart;
 // Check if the user is logged in based on localStorage flag
 let isLoggedIn = localStorage.getItem("checkAccountLogingIn") ? true : false;
 showProfileInfo(loggedInUser);
@@ -43,9 +42,13 @@ function showProfileInfo(userInfo) {
 // -------------------- Alert Handling --------------------
 
 // Function to show and hide the login alert message
+let timeoutId;
 function ActiveLoginAlert() {
   loginAlert.classList.add("active");
-  setTimeout(() => {
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+  }
+  timeoutId = setTimeout(() => {
     loginAlert.classList.remove("active");
   }, 3500);
 }
@@ -183,6 +186,7 @@ loginForm.addEventListener("submit", (e) => {
 // Handle account logout
 AccountLogOut.addEventListener("click", () => {
   localStorage.removeItem("checkAccountLogingIn"); // Remove login status
+  localStorage.removeItem("logeedINUser");
   window.location.reload(); // Reload the page to reset state
 });
 
@@ -193,41 +197,92 @@ window.addEventListener("load", () => {
     : navlogedInMode.classList.remove("logedIn");
 });
 // ------------------------ inject data ------------------------------
-
-let productsResult = document.querySelector(".productsResult");
 coffeProducts.forEach((coffee) => {
   DisplayProduct(coffee, "productsList");
 });
 function DisplayProduct(coffee, mood) {
+  // display containers
+  let productsResult = document.querySelector(".productsResult");
+  let ProfileCartProductContainer = document.querySelector(
+    ".Userprofile .cartProducts"
+  );
+  // create each product element
   let product = document.createElement("div");
   product.classList.add("product");
-
-  let addToCart = document.createElement("i");
-  addToCart.classList.add("fa-regular", "fa-heart", "addToCart");
-
-  let category = document.createElement("span");
-  category.classList.add("category");
-  category.innerHTML = coffee.category || "non";
-
-  let img = document.createElement("img");
-  img.src = coffee.image ? coffee.image : "images/no_img_available.jpg";
-  img.setAttribute("alt", coffee.title || "Product Image");
-
-  let h3 = document.createElement("h3");
-  h3.classList.add("productTitle");
-  h3.innerHTML = coffee.title || "Unknown Title";
-
-  let price = document.createElement("span");
-  price.classList.add("price");
-  price.innerHTML = coffee.price + "$" || "Price not available";
+  product.setAttribute("data-id", coffee.id);
+  product.innerHTML += `
+              <i class="fa-regular fa-heart addToCart"></i>
+              <span class="category">${coffee.category}</span>
+              <img src="${coffee.image}" alt="${coffee.title}" />
+              <h3 class="productTitle">${coffee.title}</h3>
+              <span class="price">${coffee.price} $</span>
+   `;
 
   // Append all elements to the product div
-  product.append(addToCart, category, img, h3, price);
-  if(mood=="productsList"){
-    productsResult.insertAdjacentElement("beforeend",product)
+  if (mood == "productsList") {
+    productsResult.insertAdjacentElement("beforeend", product);
+  } else if (mood == "cartProducts") {
+    ProfileCartProductContainer.insertAdjacentElement("beforeend", product);
+  }
+
+  product.addEventListener("click", (event) => {
+    let addToCart = product.querySelector(".addToCart");
+    if (event.target == addToCart) {
+      if (loggedInUser.id == -1) {
+        loginAlert.innerHTML =
+          "Oops ! you should have account first to use this property :(";
+      } else {
+        addToCart.classList.toggle("active");
+        if (addToCart.classList.contains("active")) {
+          loginAlert.innerHTML =
+            "product added to cart successfully \n visit account center to see your cart :)";
+          cartProducts.push(coffee);
+          loggedInUser.cart = [...cartProducts];
+          localStorage.setItem("logeedINUser", JSON.stringify(loggedInUser));
+          usersData=usersData.map((user)=>{
+            if(user.id==loggedInUser.id){
+              return loggedInUser;
+            }else{
+              return user;
+            }
+          });
+          localStorage.setItem("usersData", JSON.stringify(usersData));
+          CalculateTotalPrice();
+        } else {
+          loginAlert.innerHTML = `product removed from cart`;
+          cartProducts = cartProducts.filter((item) => {
+            return item.id != coffee.id;
+          });
+          loggedInUser.cart = [...cartProducts];
+          localStorage.setItem("logeedINUser", JSON.stringify(loggedInUser));
+          usersData=usersData.map((user)=>{
+            if(user.id==loggedInUser.id){
+              return loggedInUser;
+            }else{
+              return user;
+            }
+          });
+          localStorage.setItem("usersData", JSON.stringify(usersData));
+          CalculateTotalPrice();
+        }
+      }
+      ActiveLoginAlert();
+    }
+  });
+
+  // handle appearnce of data added to cart on window reload
+  let cartItem = cartProducts.find((cart) => {
+    return cart.id == coffee.id;
+  });
+  if (cartItem) {
+    product.querySelector(".addToCart").classList.add("active");
   }
 }
 
+// ----------------- handle add data to cart ---------------
+cartProducts.forEach((cartItem) => {
+  DisplayProduct(cartItem, "cartProducts");
+});
 //  customers contact form :
 document.getElementById("bookTableForm").addEventListener("submit", (event) => {
   event.preventDefault();
@@ -241,3 +296,18 @@ document.getElementById("bookTableForm").addEventListener("submit", (event) => {
   );
   ActiveLoginAlert();
 });
+
+
+function CalculateTotalPrice(){
+  let userCart=loggedInUser.cart;
+  let total=0;
+  let totalPriceSpan=document.querySelector("#CarttotalPrice span")
+  userCart.forEach((cartItem)=>{
+  total+=Number.parseFloat(cartItem.price);
+  })
+  console.log(userCart);
+  console.log(total)
+  totalPriceSpan.innerHTML=total;
+  console.log(totalPriceSpan)
+}
+CalculateTotalPrice();
