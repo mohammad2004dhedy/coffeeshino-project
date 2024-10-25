@@ -243,18 +243,11 @@ header nav.logedIn h3.userName {
   display: grid;
   grid-template-columns: repeat(auto-fill, 215px);
   margin: 50px 0;
-  gap: 15px;
-}
-.UserCart .cartProducts {
+  gap:18px;
   justify-content: center;
 }
 .UserCart {
   margin: 10px 0;
-}
-@media (max-width: 767px) {
-  .productsStore .container .productsResult {
-    justify-content: center;
-  }
 }
 .product {
   position: relative;
@@ -280,16 +273,17 @@ header nav.logedIn h3.userName {
   font-weight: 900;
 }
 .product .category {
-  padding: 10px;
-  width: 50px;
-  height: 60px;
+  padding:10px;
+  width: 85px;
+  height:50px;
   position: absolute;
   top: -8px;
-  left: -6px;
+  left: -10px;
   background: var(--bg-color);
   color: var(--main-color);
   border-bottom-right-radius: 50%;
   font-weight: bold;
+  z-index: 3;
 }
 .product img {
   width: 100px;

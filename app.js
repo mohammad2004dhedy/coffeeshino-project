@@ -192,7 +192,41 @@ window.addEventListener("load", () => {
     ? navlogedInMode.classList.add("logedIn")
     : navlogedInMode.classList.remove("logedIn");
 });
-// ------------------------fetch data from api------------------------------
+// ------------------------ inject data ------------------------------
+
+let productsResult = document.querySelector(".productsResult");
+coffeProducts.forEach((coffee) => {
+  DisplayProduct(coffee, "productsList");
+});
+function DisplayProduct(coffee, mood) {
+  let product = document.createElement("div");
+  product.classList.add("product");
+
+  let addToCart = document.createElement("i");
+  addToCart.classList.add("fa-regular", "fa-heart", "addToCart");
+
+  let category = document.createElement("span");
+  category.classList.add("category");
+  category.innerHTML = coffee.category || "non";
+
+  let img = document.createElement("img");
+  img.src = coffee.image ? coffee.image : "images/no_img_available.jpg";
+  img.setAttribute("alt", coffee.title || "Product Image");
+
+  let h3 = document.createElement("h3");
+  h3.classList.add("productTitle");
+  h3.innerHTML = coffee.title || "Unknown Title";
+
+  let price = document.createElement("span");
+  price.classList.add("price");
+  price.innerHTML = coffee.price + "$" || "Price not available";
+
+  // Append all elements to the product div
+  product.append(addToCart, category, img, h3, price);
+  if(mood=="productsList"){
+    productsResult.insertAdjacentElement("beforeend",product)
+  }
+}
 
 //  customers contact form :
 document.getElementById("bookTableForm").addEventListener("submit", (event) => {
