@@ -16,7 +16,7 @@ let userTempObject = {
   city: "no city",
   town: "no twon",
   describedLocation: "no described location",
-  orders: "0",
+  orders: 0,
   cart: [],
 };
 
@@ -135,7 +135,7 @@ SignUpForm.addEventListener("submit", (e) => {
       city: signUpUserCity,
       town: signUpUserTown,
       describedLocation: signUpLocation,
-      orders: "0",
+      orders: 0,
       cart: [],
     });
     idCounter++;
@@ -197,9 +197,12 @@ window.addEventListener("load", () => {
     : navlogedInMode.classList.remove("logedIn");
 });
 // ------------------------ inject data ------------------------------
-coffeProducts.forEach((coffee) => {
-  DisplayProduct(coffee, "productsList");
-});
+function injectDataToProductsResults() {
+  coffeProducts.forEach((coffee) => {
+    DisplayProduct(coffee, "productsList");
+  });
+}
+injectDataToProductsResults();
 function DisplayProduct(coffee, mood) {
   // display containers
   let productsResult = document.querySelector(".productsResult");
@@ -239,15 +242,17 @@ function DisplayProduct(coffee, mood) {
           cartProducts.push(coffee);
           loggedInUser.cart = [...cartProducts];
           localStorage.setItem("logeedINUser", JSON.stringify(loggedInUser));
-          usersData=usersData.map((user)=>{
-            if(user.id==loggedInUser.id){
+          usersData = usersData.map((user) => {
+            if (user.id == loggedInUser.id) {
               return loggedInUser;
-            }else{
+            } else {
               return user;
             }
           });
           localStorage.setItem("usersData", JSON.stringify(usersData));
           CalculateTotalPrice();
+          ProfileCartProductContainer.innerHTML = "";
+          displayCardProducts();
         } else {
           loginAlert.innerHTML = `product removed from cart`;
           cartProducts = cartProducts.filter((item) => {
@@ -255,15 +260,19 @@ function DisplayProduct(coffee, mood) {
           });
           loggedInUser.cart = [...cartProducts];
           localStorage.setItem("logeedINUser", JSON.stringify(loggedInUser));
-          usersData=usersData.map((user)=>{
-            if(user.id==loggedInUser.id){
+          usersData = usersData.map((user) => {
+            if (user.id == loggedInUser.id) {
               return loggedInUser;
-            }else{
+            } else {
               return user;
             }
           });
           localStorage.setItem("usersData", JSON.stringify(usersData));
           CalculateTotalPrice();
+          ProfileCartProductContainer.innerHTML = "";
+          displayCardProducts();
+          productsResult.innerHTML = "";
+          injectDataToProductsResults();
         }
       }
       ActiveLoginAlert();
@@ -278,11 +287,13 @@ function DisplayProduct(coffee, mood) {
     product.querySelector(".addToCart").classList.add("active");
   }
 }
-
 // ----------------- handle add data to cart ---------------
-cartProducts.forEach((cartItem) => {
-  DisplayProduct(cartItem, "cartProducts");
-});
+function displayCardProducts() {
+  cartProducts.forEach((cartItem) => {
+    DisplayProduct(cartItem, "cartProducts");
+  });
+}
+displayCardProducts();
 //  customers contact form :
 document.getElementById("bookTableForm").addEventListener("submit", (event) => {
   event.preventDefault();
@@ -296,18 +307,99 @@ document.getElementById("bookTableForm").addEventListener("submit", (event) => {
   );
   ActiveLoginAlert();
 });
-
-
-function CalculateTotalPrice(){
-  let userCart=loggedInUser.cart;
-  let total=0;
-  let totalPriceSpan=document.querySelector("#CarttotalPrice span")
-  userCart.forEach((cartItem)=>{
-  total+=Number.parseFloat(cartItem.price);
-  })
-  console.log(userCart);
-  console.log(total)
-  totalPriceSpan.innerHTML=total;
-  console.log(totalPriceSpan)
+// function that calculate the total price for the cart products
+function CalculateTotalPrice() {
+  let userCart = loggedInUser.cart;
+  let total = 0;
+  let totalPriceSpan = document.querySelector("#CarttotalPrice span");
+  userCart.forEach((cartItem) => {
+    total += Number.parseFloat(cartItem.price);
+  });
+  totalPriceSpan.innerHTML = total.toFixed(2);
 }
 CalculateTotalPrice();
+function completeOrder() {
+  let completeOrderBtn = document.querySelector(".completeOrder");
+  let numberOfOrders = document.getElementById("numberOfOrders");
+  completeOrderBtn.addEventListener("click", (event) => {
+    if (cartProducts.length > 0) {
+      loggedInUser.orders++;
+      numberOfOrders.textContent++;
+      loginAlert.innerHTML =
+        "order completed , you will have a call from the delevery when he arrive :)";
+      ActiveLoginAlert();
+      cartProducts = [];
+      loggedInUser.cart = [];
+      localStorage.setItem("logeedINUser", JSON.stringify(loggedInUser));
+      usersData = usersData.map((user) => {
+        if (user.id == loggedInUser.id) {
+          return loggedInUser;
+        } else {
+          return user;
+        }
+      });
+      CalculateTotalPrice();
+      let ProfileCartProductContainer = (document.querySelector(
+        ".Userprofile .cartProducts"
+      ).innerHTML = "");
+      localStorage.setItem("usersData", JSON.stringify(usersData));
+    } else {
+      loginAlert.innerHTML = "no products to order :!";
+      ActiveLoginAlert();
+    }
+  });
+}
+completeOrder();
+
+// handle the products search
+let searchForm = document.getElementById("searchForm");
+let searchInput = searchForm.querySelector("input");
+searchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+});
+searchInput.addEventListener("keyup", () => {
+  let value = searchInput.value;
+  showSearchResult(value, "searchViaInput");
+});
+function showSearchResult(value, mood) {
+  let productsResult = (document.querySelector(".productsResult").innerHTML =
+    "");
+  if (mood == "searchViaInput") {
+    if (value) {
+      let searchResult = coffeProducts.filter((product) => {
+        return product.title.toLowerCase().includes(value.toLowerCase());
+      });
+      searchResult.forEach((searchItem) => {
+        DisplayProduct(searchItem, "productsList");
+      });
+    } else {
+      injectDataToProductsResults();
+    }
+  } else if ((mood = "SearchViaCategory")) {
+    let searchResult = coffeProducts.filter((product) => {
+      return product.category.toLowerCase().includes(value.toLowerCase());
+    });
+    if (value == "all") {
+      injectDataToProductsResults();
+    } else {
+      searchResult.forEach((searchItem) => {
+        DisplayProduct(searchItem, "productsList");
+      });
+    }
+  }
+}
+
+// handle categories clickes
+let categories = document.querySelectorAll(".productsStore .categories .cat");
+categories.forEach((cat) => {
+  cat.onclick = () => {
+    removeActive(categories);
+    cat.classList.add("active");
+    showSearchResult(cat.getAttribute("data-category"), "SearchViaCategory");
+  };
+});
+function removeActive(categories) {
+  categories.forEach((cat) => {
+    cat.classList.remove("active");
+  });
+}
